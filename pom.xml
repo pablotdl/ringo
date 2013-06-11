@@ -29,7 +29,7 @@
     </dependencyManagement>
 
     <modules>
-<!--      <module>agent</module> -->
+      <module>agent</module>
       <module>persistence-api</module>
 <!--      <module>simple-persistence</module> -->
     </modules>
