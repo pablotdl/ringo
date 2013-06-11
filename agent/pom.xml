@@ -44,6 +44,12 @@
 			<artifactId>org.apache.felix.http.jetty</artifactId>
 			<version>2.0.4</version>
 		</dependency>
+		<dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.webconsole</artifactId>
+            <version>4.2.0</version>
+            <classifier>all</classifier>
+		</dependency>
 	</dependencies>
 
 	<build>
