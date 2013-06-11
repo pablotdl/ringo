@@ -1,24 +1,13 @@
 package ar.edu.unicen.ringo.agent;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import org.glassfish.jersey.server.ResourceConfig;
 
-import javax.ws.rs.core.Application;
-
-public class AgentApplication extends Application {
-
-	private Set<Object> singletons;
+public class AgentApplication extends ResourceConfig {
 
 	public AgentApplication(Object... services) {
-		this.singletons = new HashSet<>(Arrays.asList(services));
+		for (Object service : services) {
+			this.register(service);
+		}
 	}
 
-	@Override
-	public Set<Object> getSingletons() {
-		return singletons;
-	}
-
-
-	
 }
