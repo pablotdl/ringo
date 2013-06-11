@@ -12,12 +12,24 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <build>
+       <plugins>
+          <plugin>
+             <artifactId>maven-compiler-plugin</artifactId>
+             <configuration>
+                <source>1.7</source>
+                <target>1.7</target>
+             </configuration>
+          </plugin>
+        </plugins>
+    </build>
+
     <dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
-            <version>4.3.0</version>
+            <version>4.3.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
