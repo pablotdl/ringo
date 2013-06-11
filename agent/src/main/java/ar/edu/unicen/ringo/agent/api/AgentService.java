@@ -41,7 +41,13 @@ public class AgentService {
                     .entity("Service unavailable").build();
         }
         try {
-            InvocationData data = null;
+            InvocationData data = new InvocationData();
+            data.setExecutionTime(info.getExecutionTime());
+            data.setMethod(info.getMethod());
+            //TODO Locally set?
+            data.setNode(info.getNode());
+            data.setSla(info.getSla());
+            data.setTimestamp(info.getTimestamp());
             this.persistenceService.persist(data);
             return Response.ok().build();
         } catch (RuntimeException e) {
