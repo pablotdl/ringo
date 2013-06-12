@@ -2,6 +2,8 @@ package ar.edu.unicen.ringo.agent.api;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author psaavedra
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CallInfo implements Serializable {
 
     /**
@@ -57,6 +60,15 @@ public class CallInfo implements Serializable {
     }
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("CallInfo [sla=").append(sla).append(", node=")
+                .append(node).append(", method=").append(method)
+                .append(", executionTime=").append(executionTime)
+                .append(", timestamp=").append(timestamp).append("]");
+        return builder.toString();
     }
 
 }

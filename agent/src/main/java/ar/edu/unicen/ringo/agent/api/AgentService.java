@@ -36,6 +36,7 @@ public class AgentService {
     @POST
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response monitor(CallInfo info) {
+        System.out.println("Received monitoring call " + info); 
         if (persistenceService == null) {
             return Response.status(Status.SERVICE_UNAVAILABLE)
                     .entity("Service unavailable").build();
