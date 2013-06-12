@@ -169,7 +169,7 @@
 						<version>1.7</version>
 						<configuration>
 							<target>
-								<property name="vm.args" value="" />
+								<property name="vm.args" value="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=4000" />
 								<pathconvert property="plugins.jars" pathsep="${path.separator}">
 									<path refid="maven.runtime.classpath" />
 									<map from="${project.build.directory}${file.separator}classes"
