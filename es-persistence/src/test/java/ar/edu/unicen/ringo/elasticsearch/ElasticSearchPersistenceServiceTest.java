@@ -8,20 +8,17 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.Map;
-import java.util.Properties;
 
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.node.Node;
 import org.elasticsearch.rest.RestStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import ar.edu.unicen.ringo.elasticsearch.internal.ElasticSearchClientFactory;
-import ar.edu.unicen.ringo.elasticsearch.internal.TransportClientFactoryImpl;
 import ar.edu.unicen.ringo.persistence.InvocationData;
 import ar.edu.unicen.ringo.persistence.PersistenceService;
 
+import com.github.tlrx.elasticsearch.test.annotations.ElasticsearchIndex;
 import com.github.tlrx.elasticsearch.test.annotations.ElasticsearchNode;
 import com.github.tlrx.elasticsearch.test.annotations.ElasticsearchSetting;
 import com.github.tlrx.elasticsearch.test.support.junit.runners.ElasticsearchRunner;
@@ -33,11 +30,13 @@ import com.github.tlrx.elasticsearch.test.support.junit.runners.ElasticsearchRun
 @RunWith(ElasticsearchRunner.class)
 public class ElasticSearchPersistenceServiceTest {
 
-    @ElasticsearchNode(local = false, settings = { @ElasticsearchSetting(name = "http.enabled", value = "true") })
+    @ElasticsearchNode(local = false, settings = {
+            @ElasticsearchSetting(name = "http.enabled", value = "true"),
+            @ElasticsearchSetting(name = "action.auto_create_index", value = "true") })
     protected Node node;
 
-    private void doTest(Client client) throws InterruptedException {
-        PersistenceService service = new ElasticSearchPersistenceService(client);
+    private void doTest() {
+        PersistenceService service = new RestBasedElasticSearchPersistenceService();
 
         InvocationData data = new InvocationData();
         data.setExecutionTime(300);
@@ -47,8 +46,8 @@ public class ElasticSearchPersistenceServiceTest {
         data.setTimestamp(System.currentTimeMillis() - 3600000);
         service.persist(data);
 
-        client.admin().indices().prepareRefresh("agent").execute().actionGet();
-        SearchResponse response = client.prepareSearch().execute().actionGet();
+        node.client().admin().indices().prepareRefresh("agent").execute().actionGet();
+        SearchResponse response = node.client().prepareSearch().execute().actionGet();
         assertThat(response.status(), is(RestStatus.OK));
         assertThat(response.getHits().getTotalHits(),
                 equalTo(1L));
@@ -68,13 +67,10 @@ public class ElasticSearchPersistenceServiceTest {
     }
 
     @Test
-    public void basicTransportIndex() throws InterruptedException {
+    @ElasticsearchIndex(indexName = "agent", forceCreate = true)
+    public void basicTransportIndex() {
         assertThat(node, is(not(nullValue())));
-        ElasticSearchClientFactory factory = new TransportClientFactoryImpl();
-        Properties props = new Properties();
-        Client client = factory.createClient(props);
-        doTest(client);
-        client.close();
+        doTest();
     }
 
 }
