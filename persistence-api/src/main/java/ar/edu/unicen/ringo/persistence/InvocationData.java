@@ -48,5 +48,14 @@ public class InvocationData implements Serializable {
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("InvocationData [sla=").append(sla).append(", node=")
+                .append(node).append(", method=").append(method)
+                .append(", executionTime=").append(executionTime)
+                .append(", timestamp=").append(timestamp).append("]");
+        return builder.toString();
+    }
 
 }
