@@ -60,7 +60,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-Activator>ar.edu.unicen.ringo.Activator</Bundle-Activator>
+                        <Bundle-Activator>ar.edu.unicen.ringo.elasticsearch.Activator</Bundle-Activator>
                         <Export-Package/>
                     </instructions>
                 </configuration>
