@@ -1,5 +1,7 @@
 package ar.edu.unicen.ringo.elasticsearch;
 
+import java.text.SimpleDateFormat;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -20,7 +22,7 @@ import ar.edu.unicen.ringo.persistence.PersistenceService;
 public class RestBasedElasticSearchPersistenceService implements
         PersistenceService {
     private static final String URL_PATTERN = "http://%s:%d/agent/invocation/";
-    private static final String DATA_PATTERN = "{sla:\"%s\", node: \"%s\", method: \"%s\", execution_time: \"%d\", timestamp: \"%tT\"}";
+    private static final String DATA_PATTERN = "{sla:\"%s\", node: \"%s\", method: \"%s\", execution_time: \"%d\", timestamp: \"%s\"}";
 
     private final String url;
 
@@ -34,6 +36,7 @@ public class RestBasedElasticSearchPersistenceService implements
 
     @Override
     public void persist(InvocationData data) {
+        System.out.println("Persisting invocation data: " + data);
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(url);
         Invocation post = target.request(MediaType.APPLICATION_JSON_TYPE)
@@ -45,9 +48,11 @@ public class RestBasedElasticSearchPersistenceService implements
     }
 
     protected Entity<String> buildPayload(InvocationData data) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         String result = String.format(DATA_PATTERN, data.getSla(),
                 data.getNode(), data.getMethod(), data.getExecutionTime(),
-                data.getTimestamp());
+                sdf.format(data.getTimestamp()));
+        System.out.println("Sending request: " + result);
         return Entity.entity(result, MediaType.APPLICATION_JSON_TYPE);
     }
 }
