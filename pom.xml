@@ -39,6 +39,11 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>es-persistence</artifactId>
+            <version>${project.version}</version>
+        </dependency>        
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>console-ui</artifactId>
             <version>${project.version}</version>
         </dependency>        
@@ -48,6 +53,7 @@
     <modules>
       <module>agent</module>
       <module>persistence-api</module>
+      <module>es-persistence</module>
       <module>console-ui</module>
 <!--      <module>simple-persistence</module> -->
     </modules>
