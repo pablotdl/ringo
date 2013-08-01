@@ -6,3 +6,4 @@ target/
 .metadata
 
 console-ui/data/
+.DS_Store
