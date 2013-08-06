@@ -22,7 +22,7 @@ import ar.edu.unicen.ringo.persistence.PersistenceService;
 public class RestBasedElasticSearchPersistenceService implements
         PersistenceService {
     private static final String URL_PATTERN = "http://%s:%d/agent/invocation/";
-    private static final String DATA_PATTERN = "{sla:\"%s\", node: \"%s\", method: \"%s\", execution_time: \"%d\", timestamp: \"%s\"}";
+    private static final String DATA_PATTERN = "{sla:\"%s\", node: \"%s\", method: \"%s\", execution_time: %d, timestamp: \"%s\"}";
 
     private final String url;
 
