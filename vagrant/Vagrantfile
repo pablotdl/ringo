@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "ringo.base"
+  config.vm.box_url = "https://dl.dropboxusercontent.com/u/433428/ringo.base.box"
+
+  config.vm.define "elasticsearch" do |elasticsearch|
+    elasticsearch.vm.provision :shell, :path => "elasticsearch/bootstrap.sh"
+    elasticsearch.vm.network "private_network", ip: "10.0.1.11"
+  end
+
+end

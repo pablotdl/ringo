@@ -7,3 +7,15 @@ target/
 
 console-ui/data/
 .DS_Store
+
+vagrant/.vagrant/machines/elasticsearch/virtualbox/id
+
+vagrant/.vagrant/machines/elasticsearch/virtualbox/action_set_name
+
+vagrant/.vagrant/machines/default/virtualbox/action_provision
+
+vagrant/.vagrant/machines/default/virtualbox/action_set_name
+
+vagrant/.vagrant/machines/default/virtualbox/id
+
+vagrant/.vagrant/machines/elasticsearch/virtualbox/action_provision
