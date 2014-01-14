@@ -19,3 +19,5 @@ vagrant/.vagrant/machines/default/virtualbox/action_set_name
 vagrant/.vagrant/machines/default/virtualbox/id
 
 vagrant/.vagrant/machines/elasticsearch/virtualbox/action_provision
+
+deployment/.vagrant

@@ -10,7 +10,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "elasticsearch" do |elasticsearch|
     elasticsearch.vm.provision :shell, :path => "elasticsearch/bootstrap.sh"
-    elasticsearch.vm.network "private_network", ip: "10.0.1.11"
+    elasticsearch.vm.network "private_network", ip: "10.0.1.10"
   end
+
+  config.vm.define "node1" do |node1|
+    node1.vm.provision :shell, :path => "node/bootstrap.sh"
+    node1.vm.network "private_network", ip: "10.0.1.11"
+  end  
 
 end
