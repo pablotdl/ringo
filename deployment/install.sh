@@ -1,26 +1,12 @@
 #!/usr/bin/env bash
 
-if [ -f ./boxes/ringo.box ]
-then
-    echo "Ringo Box starting..."
-	cp -f ./conf/Vagrantfile.ringo ./Vagrantfile
-	vagrant up
+docker run -d dockerfile/elasticsearch
 
-	echo "Ringo Box running!!!"
-else
-	echo "Ringo Box installing..."
-	
-	cp -f ./conf/Vagrantfile.docker ./Vagrantfile
-	vagrant up
+BUILD=$(docker build - < /vagrant/Dockerfile.node)
+CONTAINER=${BUILD##* }
+docker run $CONTAINER
+#docker run -d $CONTAINER
 
-	echo "Ringo Box packaging..."
-	mkdir boxes
-	vagrant package --output ./boxes/ringo.box
-	vagrant destroy
 
-	echo "Ringo Box adding..."
-	vagrant box add ringo ./boxes/ringo.box
-
-	echo "Ringo Box installed!!!"
-fi
+docker run -d jvallelunga/ringo /bin/sh -c "while true; do echo Hello world; sleep 1; done"
 

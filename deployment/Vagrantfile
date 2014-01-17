@@ -10,4 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/ubuntu-12.04.3-amd64-vbox.box"
   config.vm.provision "docker", images: ["jvallelunga/ringo", "dockerfile/elasticsearch"]
 
+  config.vm.provision "docker" do |d|
+    d.run "dockerfile/elasticsearch", args: "-d"
+  end
 end
