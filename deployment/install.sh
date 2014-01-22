@@ -3,8 +3,9 @@
 docker run -d dockerfile/elasticsearch
 
 BUILD=$(docker build - < /vagrant/Dockerfile.node)
-CONTAINER=${BUILD##* }
-docker run $CONTAINER
+IMAGE=${BUILD##* }
+
+CONTAINER=$(docker run -d $IMAGE)
 #docker run -d $CONTAINER
 
 
