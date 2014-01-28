@@ -22,8 +22,11 @@ public class Activator implements BundleActivator {
      * Starts the bundle.
      */
     public void start(BundleContext context) throws Exception {
+    	String host = System.getProperty("es.host", "localhost");
+    	String port = System.getProperty("es.port", "9200");
         PersistenceService service;
-        service = new RestBasedElasticSearchPersistenceService();
+		service = new RestBasedElasticSearchPersistenceService(host,
+				Integer.parseInt(port));
         handle = context.registerService(PersistenceService.class, service,
                 new Hashtable<String, Object>());
     }
