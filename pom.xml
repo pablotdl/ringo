@@ -54,7 +54,6 @@
       <module>agent</module>
       <module>persistence-api</module>
       <module>es-persistence</module>
-      <module>console-ui</module>
 <!--      <module>simple-persistence</module> -->
     <module>mock-app</module>
   </modules>
