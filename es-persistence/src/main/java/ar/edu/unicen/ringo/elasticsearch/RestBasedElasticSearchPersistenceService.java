@@ -22,7 +22,7 @@ import ar.edu.unicen.ringo.persistence.PersistenceService;
 public class RestBasedElasticSearchPersistenceService implements
         PersistenceService {
     private static final String URL_PATTERN = "http://%s:%d/agent/invocation/";
-    private static final String DATA_PATTERN = "{sla:\"%s\", node: \"%s\", method: \"%s\", execution_time: %d, timestamp: \"%s\"}";
+    private static final String DATA_PATTERN = "{sla:\"%s\", node: \"%s\", method: \"%s\", execution_time: %d, timestamp: %s}";
 
     private final String url;
 
@@ -48,10 +48,9 @@ public class RestBasedElasticSearchPersistenceService implements
     }
 
     protected Entity<String> buildPayload(InvocationData data) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         String result = String.format(DATA_PATTERN, data.getSla(),
                 data.getNode(), data.getMethod(), data.getExecutionTime(),
-                sdf.format(data.getTimestamp()));
+                data.getTimestamp());
         System.out.println("Sending request: " + result);
         return Entity.entity(result, MediaType.APPLICATION_JSON_TYPE);
     }

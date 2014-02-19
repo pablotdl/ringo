@@ -25,6 +25,8 @@ public class AgentService {
      * The persistence service.
      */
     private volatile PersistenceService persistenceService;
+	private String sla;
+	private String node;
 
     /**
      * Logs a call from a service for later reporting.
@@ -45,9 +47,8 @@ public class AgentService {
             InvocationData data = new InvocationData();
             data.setExecutionTime(info.getExecutionTime());
             data.setMethod(info.getMethod());
-            //TODO Locally set?
-            data.setNode(info.getNode());
-            data.setSla(info.getSla());
+            data.setNode(this.node == null ? info.getNode() : this.node);
+            data.setSla(this.sla == null ? info.getSla() : this.sla);
             data.setTimestamp(info.getTimestamp());
             this.persistenceService.persist(data);
             return Response.ok().build();
@@ -74,5 +75,13 @@ public class AgentService {
     public void setPersistenceService(PersistenceService persistenceService) {
         this.persistenceService = persistenceService;
     }
+
+	public void setSla(String value) {
+		this.sla = value;
+	}
+
+	public void setNode(String value) {
+		this.node = value;
+	}
 
 }

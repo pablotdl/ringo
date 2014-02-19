@@ -30,6 +30,11 @@
 			<artifactId>persistence-api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>es-persistence</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.glassfish.jersey</groupId>
 			<artifactId>jax-rs-ri</artifactId>
 			<version>2.0-rc1</version>
@@ -192,6 +197,11 @@
 								<java fork="true"
 									jar="${maven.dependency.org.apache.felix.org.apache.felix.main.jar.path}">
 									<sysproperty key="felix.config.properties" value="${run.properties.url}" />
+									<sysproperty key="agent.sla" value="${agent.sla}" />
+									<sysproperty key="agent.node" value="${agent.node}" />
+									<sysproperty key="es.host" value="${es.host}" />
+									<sysproperty key="es.port" value="${es.port}" />
+									<sysproperty key="jetty.port" value="${jetty.port}" />
 									<jvmarg line="${vm.args}" />
 								</java>
 							</target>
