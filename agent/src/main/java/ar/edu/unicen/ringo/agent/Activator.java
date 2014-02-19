@@ -19,8 +19,13 @@ public class Activator implements BundleActivator {
     public void start(BundleContext context) throws Exception {
         this.bc = context;
         this.service = new AgentService();
-        this.service.setSla(System.getProperty("agent.sla"));
-        this.service.setNode(System.getProperty("agent.node"));
+        String sla = System.getProperty("agent.sla");
+        String node = System.getProperty("agent.node");
+		System.out.println("Starting agent with sla " + sla + " and node "
+				+ node);
+
+        this.service.setSla(sla);
+		this.service.setNode(node);
         jaxRsApplication = new AgentApplication(service);
 
         persistenceTracker = new ServiceTracker<>(context,
