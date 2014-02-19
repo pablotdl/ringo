@@ -1,0 +1,9 @@
+FROM jvallelunga/ringo
+
+RUN apt-get install -y curl telnet
+RUN git clone https://github.com/pablotdl/ringo-console.git
+RUN cd ringo-console; mvn clean install -DskipTests
+
+EXPOSE 9200 
+EXPOSE 9300 
+EXPOSE 8888 

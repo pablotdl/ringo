@@ -1,6 +1,6 @@
 FROM jvallelunga/ringo
 
-
 RUN git clone https://github.com/pablotdl/ringo.git
+RUN cd ringo/mock-app; mvn clean install -DskipTests
 
-ENTRYPOINT cd ./ringo/mock-app; mvn jetty:run
+EXPOSE 9200 9300 
