@@ -3,7 +3,6 @@ package ar.edu.unicen.ringo.mockapp.core;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,17 +13,8 @@ import org.springframework.stereotype.Component;
 @Component("callGenerator")
 public class CallGeneratorTask implements Runnable {
 
-	@Value("${invocation.minTime}")
-	private int minExecTIme;
-	@Value("${invocation.maxTime}")
-	private int maxExecTime;
-	@Value("${invocation.method}")
-	private String method;
-	@Value("${invocation.node}")
-	private String node;
-	@Value("${invocation.sla}")
-	private String sla;
-
+	@Autowired
+	private Configuration data;
 	@Autowired
 	private AgentClient client;
 	
@@ -32,12 +22,12 @@ public class CallGeneratorTask implements Runnable {
 	@Override
 	public void run() {
 		CallInfo info = new CallInfo();
-		info.setMethod(method);
+		info.setMethod(data.getMethod());
 		info.setTimestamp(System.currentTimeMillis());
 		info.setExecutionTime(calculateExecutionTime());
-		info.setMethod(method);
-		info.setNode(node);
-		info.setSla(sla);
+		info.setMethod(data.getMethod());
+		info.setNode(data.getNode());
+		info.setSla(data.getSla());
 		client.invoke(info);
 	}
 
@@ -47,7 +37,7 @@ public class CallGeneratorTask implements Runnable {
 	 */
 	private int calculateExecutionTime() {
 		ThreadLocalRandom random = ThreadLocalRandom.current();
-		return random.nextInt(minExecTIme, maxExecTime);
+		return random.nextInt(data.getMinExecTIme(), data.getMaxExecTime());
 	}
 
 }
