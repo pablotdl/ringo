@@ -3,6 +3,7 @@ package ar.edu.unicen.ringo.mockapp.ui;
 import java.util.concurrent.ScheduledFuture;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
@@ -59,6 +60,7 @@ public class LifecycleController {
 			throw new AlreadyInRequestedState();
 		}
 		future.cancel(false);
+		future = null;
 		return "Sampler successfully stopped";
 	}
 
@@ -66,5 +68,10 @@ public class LifecycleController {
 	public ModelAndView status() {
 		ModelAndView mav = new ModelAndView(view, "config", configuration);
 		return mav;
+	}
+
+	@PreDestroy
+	public void shutdown() {
+		this.stop();
 	}
 }
