@@ -22,9 +22,13 @@ public class Activator implements BundleActivator {
      * Starts the bundle.
      */
     public void start(BundleContext context) throws Exception {
-    	String host = System.getProperty("es.host", "localhost");
-    	String port = System.getProperty("es.port", "9200");
-        PersistenceService service;
+    	String host = System.getProperty("es.host");
+    	host = host == null || host.isEmpty() ? "localhost" : host;
+
+    	String port = System.getProperty("es.port");
+    	port = port == null || port.isEmpty() ? "9200" : port;
+
+    	PersistenceService service;
 		service = new RestBasedElasticSearchPersistenceService(host,
 				Integer.parseInt(port));
         handle = context.registerService(PersistenceService.class, service,
