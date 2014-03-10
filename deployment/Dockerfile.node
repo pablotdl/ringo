@@ -4,7 +4,8 @@ FROM jvallelunga/ringo
 RUN git clone https://github.com/pablotdl/ringo.git
 RUN cd ringo; mvn clean install -DskipTests
 
-ENTRYPOINT ["/ringo/startup.sh"]
+VOLUME ["/root/.m2/repository"]
+ENTRYPOINT ["/ringo/boot.sh"]
 
 EXPOSE 8081
 
