@@ -16,7 +16,7 @@ cd "$( dirname "$0" )"
 git pull
 
 cd agent
-mvn antrun:run -P run-on-felix -Dagent.sla=$1 -Dagent.node=$2 -Des.host=$3 -Des.port=$4 & 
+mvn antrun:run -P run-on-felix $@ & 
 cd ..
 
 cd  mock-app
